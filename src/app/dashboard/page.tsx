@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import AppTutorial from '@/components/AppTutorial';
+import PulseSuiteCrossSell from '@/components/PulseSuiteCrossSell';
 import { getUser } from '@/lib/auth';
 import { STATUS_STYLES, formatCurrency } from '@/lib/types';
 import type { Invoice } from '@/lib/types';
@@ -106,6 +107,25 @@ export default function DashboardPage() {
             );
           })}
         </div>
+
+        {/* Cross-sell: ReviewPulse */}
+        {MOCK_INVOICES.some(i => i.status === 'paid') && (
+          <div className="glow-card p-5 flex items-center justify-between !border-amber-500/20">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-amber-500/15 rounded-lg flex items-center justify-center text-amber-400 text-sm">⭐</div>
+              <div>
+                <h3 className="text-sm font-medium text-foreground">Client paid? Ask for a review</h3>
+                <p className="text-xs text-muted">Happy clients give the best reviews. Send a request while the experience is fresh.</p>
+              </div>
+            </div>
+            <a href="https://reviewpulse.pages.dev/requests" target="_blank" rel="noopener noreferrer"
+              className="px-4 py-2 bg-amber-500/15 text-amber-400 rounded-xl text-xs font-medium hover:bg-amber-500/25 transition-colors flex-shrink-0">
+              Request Review →
+            </a>
+          </div>
+        )}
+
+        <PulseSuiteCrossSell />
       </div>
     </>
   );
